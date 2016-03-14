@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title> 测试 JSONP 调用 DLL </title>
+
+    <!-- Bootstrap -->
+    <!-- <link href="/css/bootstrap.min.css" rel="stylesheet"> -->
+    <link href="http://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="//cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+  <div class="container">
+    <br>
+    <div class="jumbotron">
+      <h1> 测试 JSONP 调用 DLL </h1>
+      <p>  简介：解决 JavaScript 不能执行本地程序的一个另类解决方案。 </p>
+      <ul>
+        <li>1、使用 Python 编写本地功能。例如：调用本地条码打印机（通过 Dll 调用功能）</li>
+        <li>2、将 Python 功能嵌入本地 Web（因为不涉及性能 使用 Python Bottle web 框架）</li>
+        <li>3、将 2 中的 Web 服务 封装成 Windows 服务，并使用 py2exe 打包成 exe（可以设置开机自启动）</li>
+        <li>4、JavaScript 通过 JSONP 调用</li>
+      </ul>
+
+      <p class="col-sm-offset-2 col-sm-4">
+        <button class="btn btn-primary btn-lg btn-block" type="button" onclick="fun()">测试</button>
+      </p>
+    </div>
+
+    <div class="alert alert-success" role="alert" id="result" style="display: none"></div>
+
+  </div>
+    <!-- <script src="/js/jquery.min.js"></script> -->
+    <script src="http://cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
+  </body>
+  <script type="text/javascript">
+  function fun() {
+    $.get("http://127.0.0.1:8089/dll", function(result){
+      if(result.code == 1){
+          $("div#result").html(result.msg).show();
+      }else{
+          alert(result.msg);
+      }
+    }, "jsonp");
+  }
+  </script>
+</html>
+
