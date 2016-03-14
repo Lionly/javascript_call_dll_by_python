@@ -1,0 +1,2 @@
+# javascript_call_dll_by_python
+解决 JavaScript 不能执行本地程序的一个另类解决方案
